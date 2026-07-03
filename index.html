@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen Z Leadership Dashboard - Universal Premium Theme</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1', // Neon Indigo
+                            600: '#4f46e5',
+                            accent: '#06b6d4', // Electric Cyan
+                            violet: '#8b5cf6', // Electric Violet
+                        },
+                        dark: {
+                            950: '#070913', // Deep Cosmic Black
+                            900: '#0F1322', // Card Dark Slate
+                            800: '#1D243D', // Border Blue-Gray
+                            700: '#384260', // Muted Text/Gray
+                            600: '#64748b'
+                        },
+                        light: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            300: '#CBD5E1'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-glow': '0 0 25px rgba(99, 102, 241, 0.25)',
+                        'cyan-glow': '0 0 25px rgba(6, 182, 212, 0.25)',
+                        'heavy-dark': '0 20px 50px -12px rgba(0, 0, 0, 0.8)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070913;
+            color: #F1F5F9;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070913;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1D243D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366F1;
+        }
+        .glowing-card {
+            border: 1px solid #1D243D;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glowing-card:hover {
+            border-color: #6366F1;
+            box-shadow: 0 0 30px -5px rgba(99, 102, 241, 0.35);
+            transform: translateY(-3px);
+        }
+        .glowing-card-cyan:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.35);
+            transform: translateY(-3px);
+        }
+        /* Gradient Background Text and Accents */
+        .neon-text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 30%, #6366F1 70%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Range Sliders Customs */
+        input[type="range"]::-webkit-slider-thumb {
+            background: #6366F1;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.9);
+            border: 2px solid #FFF;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            appearance: none;
+        }
+        input[type="range"]::-moz-range-thumb {
+            background: #6366F1;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.9);
+            border: 2px solid #FFF;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white antialiased">
+
+    <!-- Toast Notification (Replacement for alert) -->
+    <div id="custom-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-dark-900 border border-brand-500 text-white px-5 py-4 rounded-xl shadow-heavy-dark flex items-center space-x-3">
+            <span class="flex h-3 w-3 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+            </span>
+            <p id="toast-text" class="text-xs font-bold text-light-100">Message Copied!</p>
+        </div>
+    </div>
+
+    <header class="border-b border-dark-800 bg-dark-900/90 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Generic Premium SVG Logo -->
+                <div class="flex items-center bg-gradient-to-tr from-brand-600 to-brand-accent p-2 rounded-lg text-white">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xs font-extrabold tracking-widest text-brand-accent uppercase">
+                        NEXT-GEN LEADERSHIP HUB
+                    </h1>
+                    <p class="text-[10px] text-light-300 font-semibold">Evidence-Based Management of Gen Z Talent</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <a href="#myth-buster" class="text-[11px] font-extrabold text-light-300 hover:text-brand-500 transition px-2 py-1">
+                    Mitos vs Fakta
+                </a>
+                <a href="#risk-calculator" class="text-[11px] font-extrabold text-light-300 hover:text-brand-500 transition px-2 py-1">
+                    Radar Resign
+                </a>
+                <a href="#playbook" class="text-[11px] font-extrabold text-light-300 hover:text-brand-500 transition px-2 py-1">
+                    Playbook
+                </a>
+                <span class="h-4 w-px bg-dark-800 hidden sm:block"></span>
+                <div class="bg-brand-500/10 border border-brand-500/30 px-3 py-1.5 rounded-full flex items-center space-x-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span>
+                    <span class="text-[9px] sm:text-[10px] text-brand-400 font-extrabold tracking-wider uppercase">GLOBAL METRICS</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <!-- Hero Section with Glowing Accents -->
+        <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-dark-900 via-dark-950 to-brand-600/10 border border-dark-800 p-8 sm:p-12 shadow-heavy-dark">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)]"></div>
+            <div class="relative z-10 max-w-4xl space-y-5">
+                <div class="inline-flex items-center space-x-2 bg-brand-500/10 border border-brand-500/30 text-brand-400 text-[11px] px-3.5 py-2 rounded-full font-bold">
+                    <i class="fas fa-microscope text-brand-accent animate-pulse"></i>
+                    <span>UNIVERSAL COMPENDIUM FOR EXECUTIVE MANAGEMENT & TEAM LEADERS</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                    Memimpin Gen Z Berbasis Data: <br>
+                    <span class="neon-text-gradient">Bangun Retensi dan Kinerja Tanpa Stereotip</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-light-300 leading-relaxed max-w-3xl">
+                    Hentikan perdebatan tak berujung tentang apakah Gen Z "lembek", "gampang resign", atau "anti-aturan". Kami menguji hipotesis perilaku organisasi populer menggunakan meta-analisis psikologi industri internasional berkualitas tinggi. Dari kalkulator risiko retensi dinamis hingga playbook manajerial praktis—semua dirancang untuk memandu pimpinan mengelola generasi baru secara efektif.
+                </p>
+                <div class="pt-3 flex flex-wrap gap-3">
+                    <a href="#myth-buster" class="bg-brand-500 hover:bg-brand-600 text-white font-black text-xs px-6 py-4 rounded-xl shadow-neon-glow hover:shadow-none transition duration-300 flex items-center space-x-2">
+                        <i class="fas fa-magnifying-glass-chart"></i>
+                        <span>Bongkar Mitos & Fakta</span>
+                    </a>
+                    <a href="#risk-calculator" class="bg-dark-800 hover:bg-dark-700 border border-dark-700 text-white font-bold text-xs px-6 py-4 rounded-xl transition duration-300 flex items-center space-x-2">
+                        <i class="fas fa-gauge-high"></i>
+                        <span>Uji "Radar Resign" Divisi Anda</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-r from-brand-accent/5 to-brand-500/10 border border-brand-500/20 rounded-2xl p-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-5 text-9xl text-brand-accent">
+                <i class="fas fa-share-nodes"></i>
+            </div>
+            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div class="space-y-1.5 max-w-xl">
+                    <span class="text-[9px] bg-brand-accent text-dark-950 font-black px-2.5 py-1 rounded uppercase tracking-wider">⚡ SHARE TOOLKIT</span>
+                    <h3 class="text-lg font-extrabold text-white">Bagikan Insight Ini Kepada Sesama Leaders</h3>
+                    <p class="text-xs text-light-300 leading-relaxed">
+                        Ingin mencerahkan tim manajemen Anda di WhatsApp Group atau platform internal? Salin pesan ringkas berbasis bukti riset empiris di bawah ini secara instan.
+                    </p>
+                </div>
+                <!-- Interactive Copy Buttons Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full lg:w-auto">
+                    <button onclick="copyToClipboard(1)" class="bg-dark-950 hover:bg-dark-900 border border-dark-800 hover:border-brand-500 text-left p-4 rounded-xl transition group">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold text-brand-accent">💡 SHARE 1: Makna vs Gaji</span>
+                            <i class="far fa-copy text-[10px] text-light-300 group-hover:text-brand-accent"></i>
+                        </div>
+                        <p class="text-[11px] text-light-300 line-clamp-1">"Ada miskonsepsi bahwa Gen Z rela digaji rendah..."</p>
+                    </button>
+                    <button onclick="copyToClipboard(2)" class="bg-dark-950 hover:bg-dark-900 border border-dark-800 hover:border-brand-500 text-left p-4 rounded-xl transition group">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold text-brand-violet">🔥 SHARE 2: Hierarki & Autonomy</span>
+                            <i class="far fa-copy text-[10px] text-light-300 group-hover:text-brand-violet"></i>
+                        </div>
+                        <p class="text-[11px] text-light-300 line-clamp-1">"Gen Z ternyata bukan anti-aturan, tapi anti..."</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="myth-buster" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-6">
+                <div class="space-y-1.5">
+                    <div class="inline-flex items-center space-x-1.5 text-brand-accent text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-brain"></i>
+                        <span>Mini-Game Interaktif</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white">
+                        Myth-Buster Deck: Tebak Mitos vs Realitas Gen Z
+                    </h3>
+                    <p class="text-xs text-light-300">
+                        Apakah taktik kepemimpinan Anda didasarkan pada realitas empiris ilmiah, atau sekadar termakan opini media sosial? Uji pemahaman Anda.
+                    </p>
+                </div>
+                <div class="mt-3 md:mt-0 bg-dark-900 px-4 py-2.5 rounded-xl border border-dark-800 flex items-center space-x-2 text-xs">
+                    <span class="text-light-300 font-semibold">Skor Akurasi Pemahaman:</span>
+                    <span id="score-counter" class="font-black text-brand-accent bg-brand-accent/10 px-2.5 py-1 rounded-md">0 / 0</span>
+                </div>
+            </div>
+
+            <!-- Quiz Layout: Interactive Card Deck -->
+            <div class="max-w-4xl mx-auto bg-dark-900 border border-dark-800 rounded-2xl p-6 relative overflow-hidden shadow-heavy-dark">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-dark-800">
+                    <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-brand-accent transition-all duration-300" style="width: 16.6%;"></div>
+                </div>
+
+                <!-- Card Content -->
+                <div id="quiz-card-container" class="min-h-[220px] flex flex-col justify-between mt-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="quiz-topic" class="text-[9px] uppercase tracking-wider font-black text-brand-accent bg-brand-accent/10 px-2.5 py-1 rounded-md">MOTIVASI & KOMPENSASI</span>
+                            <span id="quiz-index" class="text-xs text-light-300 font-bold">Kartu 1 dari 6</span>
+                        </div>
+                        <h4 id="quiz-statement" class="text-base sm:text-lg font-extrabold text-white leading-relaxed">
+                            "Gen Z menuntut pekerjaan bermakna yang memberikan dampak langsung sehingga mereka rela menerima kompensasi finansial yang rendah secara konsisten."
+                        </h4>
+                    </div>
+
+                    <!-- Options / Buttons -->
+                    <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                        <button onclick="checkAnswer('MITOS')" id="btn-mitos" class="flex-1 py-4 bg-dark-800 hover:bg-dark-755 border border-dark-700 text-white font-extrabold text-xs sm:text-sm rounded-xl transition duration-200 focus:outline-none flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fas fa-skull text-red-500"></i>
+                            <span>ASUMSI POPULER / MITOS</span>
+                        </button>
+                        <button onclick="checkAnswer('FAKTA')" id="btn-fakta" class="flex-1 py-4 bg-dark-800 hover:bg-dark-755 border border-dark-700 text-white font-extrabold text-xs sm:text-sm rounded-xl transition duration-200 focus:outline-none flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fas fa-circle-check text-emerald-500"></i>
+                            <span>REALITAS / FAKTA EMPIRIS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Explanation Box (Hidden initially, shown after click) -->
+                <div id="quiz-explanation-box" class="hidden mt-6 pt-6 border-t border-dark-800 transition-all duration-300">
+                    <div class="p-5 rounded-xl bg-dark-950 border border-dark-800">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span id="quiz-badge" class="px-3 py-1 text-[10px] font-black rounded-lg">BENAR!</span>
+                            <span class="text-xs text-light-300 font-bold" id="quiz-ref-title">Referensi: Ward (2023) & Deloitte</span>
+                        </div>
+                        <p id="quiz-explanation-text" class="text-xs sm:text-sm text-light-300 leading-relaxed">
+                            Meskipun faktor kebermaknaan dinilai tinggi, kompensasi finansial tetap mendominasi keputusan riil karier karena kendala ekonomi makro dunia.
+                        </p>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="nextQuizCard()" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-black px-5 py-2.5 rounded-xl transition flex items-center space-x-2">
+                                <span>Lanjutkan Petualangan</span>
+                                <i class="fas fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="risk-calculator" class="scroll-mt-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Input Panel (7 cols) -->
+                <div class="lg:col-span-7 bg-dark-900 border border-dark-800 rounded-2xl p-6 shadow-heavy-dark space-y-6">
+                    <div class="space-y-1.5">
+                        <span class="text-[9px] text-brand-accent font-black tracking-widest uppercase">DIAGNOSTIK INTERAKTIF</span>
+                        <h3 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fas fa-gauge-high text-brand-accent"></i>
+                            <span>Radar Resign: Simulator Retensi Tim Gen Z</span>
+                        </h3>
+                        <p class="text-xs text-light-300 leading-relaxed">
+                            Geser slider di bawah ini sesuai dengan kondisi nyata lingkungan kerja tim atau divisi yang Anda pimpin saat ini. Lihat perkiraan probabilitas bertahannya staf muda Anda berdasarkan koefisien regresi ilmiah ($\beta$).
+                        </p>
+                    </div>
+
+                    <!-- Slider Inputs Container -->
+                    <div class="space-y-4">
+                        <!-- 1. Peluang Karir (Beta: 0.45) -->
+                        <div class="p-4 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-extrabold text-light-200 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+                                    Kejelasan Jenjang Karier <span class="text-[9px] bg-brand-500/10 text-brand-400 px-1.5 py-0.5 rounded font-black uppercase">PENGARUH TERKUAT ($\beta$: 0.45)</span>
+                                </label>
+                                <span id="val-career" class="text-xs font-black text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">50%</span>
+                            </div>
+                            <input type="range" id="input-career" min="0" max="100" value="50" oninput="calculateRetention()" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <p class="text-[10px] text-light-300 mt-2">Transparansi promosi, penugasan proyek baru, dan program pengembangan kompetensi terstruktur.</p>
+                        </div>
+
+                        <!-- 2. Gaji & Finansial (Beta: 0.41) -->
+                        <div class="p-4 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-extrabold text-light-200 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                                    Kompensasi Finansial & Benefit <span class="text-[9px] bg-brand-500/10 text-brand-400 px-1.5 py-0.5 rounded font-black uppercase">SANGAT KUAT ($\beta$: 0.41)</span>
+                                </label>
+                                <span id="val-salary" class="text-xs font-black text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">50%</span>
+                            </div>
+                            <input type="range" id="input-salary" min="0" max="100" value="50" oninput="calculateRetention()" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <p class="text-[10px] text-light-300 mt-2">Gaji pokok dasar, keadilan internal, bonus berbasis kinerja, dan stabilitas finansial.</p>
+                        </div>
+
+                        <!-- 3. Fleksibilitas Kerja (Beta: 0.38) -->
+                        <div class="p-4 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-extrabold text-light-200 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                                    Fleksibilitas & Otonomi Kerja <span class="text-[9px] bg-brand-accent/10 text-brand-accent px-1.5 py-0.5 rounded font-black uppercase">KUAT ($\beta$: 0.38)</span>
+                                </label>
+                                <span id="val-flexibility" class="text-xs font-black text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded">50%</span>
+                            </div>
+                            <input type="range" id="input-flexibility" min="0" max="100" value="50" oninput="calculateRetention()" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-accent">
+                            <p class="text-[10px] text-light-300 mt-2">Kelenturan jam kerja (WFA/WFH/Hybrid) dan kebebasan menentukan cara penyelesaian masalah.</p>
+                        </div>
+
+                        <!-- 4. Keamanan Psikologis (Beta: 0.28) -->
+                        <div class="p-4 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-extrabold text-light-200 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+                                    Keamanan Psikologis & Kolaborasi <span class="text-[9px] bg-brand-violet/10 text-brand-violet px-1.5 py-0.5 rounded font-black uppercase">MODERAT ($\beta$: 0.28)</span>
+                                </label>
+                                <span id="val-safety" class="text-xs font-black text-brand-violet bg-brand-violet/10 px-2 py-0.5 rounded">50%</span>
+                            </div>
+                            <input type="range" id="input-safety" min="0" max="100" value="50" oninput="calculateRetention()" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-violet">
+                            <p class="text-[10px] text-light-300 mt-2">Keterbukaan dalam menyampaikan pendapat tanpa takut sanksi, dan budaya belajar dari kesalahan.</p>
+                        </div>
+
+                        <!-- 5. Kebermaknaan Kerja / Purpose (Beta: 0.15) -->
+                        <div class="p-4 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-extrabold text-light-200 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-light-300"></span>
+                                    Kebermaknaan Tugas & Dampak Sosial <span class="text-[9px] bg-dark-800 text-light-300 px-1.5 py-0.5 rounded font-black uppercase">LEMAH ($\beta$: 0.15)</span>
+                                </label>
+                                <span id="val-purpose" class="text-xs font-black text-light-300 bg-dark-800 px-2 py-0.5 rounded">50%</span>
+                            </div>
+                            <input type="range" id="input-purpose" min="0" max="100" value="50" oninput="calculateRetention()" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-light-300">
+                            <p class="text-[10px] text-light-300 mt-2">Kejelasan kontribusi individu terhadap misi besar/tujuan jangka panjang organisasi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Results & Simon's Theory (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col h-full justify-between space-y-6">
+                    <div class="bg-dark-900 border border-dark-800 rounded-2xl p-6 shadow-heavy-dark flex-grow flex flex-col justify-between">
+                        <div class="text-center">
+                            <span class="text-[10px] text-light-300 font-extrabold block mb-3 tracking-widest uppercase">LOYALTY INDEX POTENTIAL</span>
+                            
+                            <!-- Circular Graphic Display -->
+                            <div class="inline-flex relative items-center justify-center p-6 bg-dark-950 border-4 border-dashed border-brand-500 rounded-full w-40 h-40 mx-auto mb-4 shadow-neon-glow transition duration-300">
+                                <div id="retention-score" class="text-4xl font-black text-brand-500">50%</div>
+                            </div>
+                            
+                            <h4 id="retention-status" class="text-base font-black text-white mb-2">TINGKAT RETENSI MODERAT</h4>
+                            <p id="retention-brief" class="text-xs text-light-300 px-3 leading-relaxed">
+                                Staf Anda merasa biasa saja. Satu tawaran karir menarik dari kompetitor dapat membuat mereka mengirimkan surat pengunduran diri besok pagi.
+                            </p>
+                        </div>
+
+                        <!-- Actionable Recommendation Alert box -->
+                        <div class="mt-6 pt-6 border-t border-dark-800">
+                            <div class="bg-brand-500/10 border border-brand-500/30 p-4 rounded-xl flex items-start space-x-3">
+                                <div class="bg-brand-500/20 text-brand-400 p-2.5 rounded-lg flex-shrink-0">
+                                    <i class="fas fa-lightbulb text-base animate-bounce"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-xs font-black text-white">REKOMENDASI SISTEM:</h5>
+                                    <p id="retention-recommendation" class="text-[11px] text-light-200 mt-1.5 leading-relaxed">
+                                        Fokus pada kejelasan jenjang karir! Ini adalah pembunuh retensi utama bagi talenta muda Anda.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simon's Satisficing Theory Visualizer Widget -->
+                    <div class="bg-dark-900 border border-dark-800 rounded-2xl p-6 shadow-heavy-dark space-y-3">
+                        <h4 class="text-xs font-black text-white uppercase tracking-wider flex items-center justify-between">
+                            <span>Simon's Satisficing Theory Hub</span>
+                            <span class="text-[9px] bg-brand-accent/10 text-brand-accent px-2.5 py-1 rounded border border-brand-accent/20 font-black">TRADE-OFF</span>
+                        </h4>
+                        <p class="text-[11px] text-light-300 leading-relaxed">
+                            Berdasarkan hipotesis *satisficing*, kompensasi finansial dasar adalah prasyarat keberlangsungan kerja (*deal-breaker*). Sebelum batasan ekonomi ini terpenuhi, janji "makna sosial" atau "tujuan mulia" tidak akan mampu membendung keinginan pindah kerja.
+                        </p>
+                        
+                        <!-- Miniature Interactive Bar Chart -->
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-light-300 mb-1">
+                                    <span>Ambang Batas Kompensasi Layak</span>
+                                    <span id="salary-threshold-status" class="font-black text-brand-accent">Terpenuhi (50%)</span>
+                                </div>
+                                <div class="w-full bg-dark-950 h-3 rounded-full overflow-hidden p-0.5 border border-dark-800">
+                                    <div id="salary-progress" class="bg-gradient-to-r from-red-500 to-brand-accent h-full rounded-full transition-all duration-300" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-dark-950 p-3 rounded-xl border border-dark-800 mt-2">
+                                <p id="satisficing-verdict" class="text-[10px] text-light-300 italic leading-relaxed">
+                                    "Kompensasi dasar berada dalam tingkat stabil. Sekarang otonomi dan misi besar perusahaan dapat bekerja penuh sebagai pengikat loyalitas utama."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="playbook" class="scroll-mt-24">
+            <div class="mb-6 space-y-1.5">
+                <span class="text-[9px] text-brand-accent font-black tracking-widest uppercase">EVIDENCE-BASED PRACTICES</span>
+                <h3 class="text-2xl font-black text-white">
+                    Next-Gen Leadership Playbook
+                </h3>
+                <p class="text-xs text-light-300">
+                    Panduan praktis berlandaskan bukti ilmiah untuk menyelaraskan perilaku manajemen harian agar talenta muda tetap termotivasi, mandiri, dan berkinerja tinggi.
+                </p>
+            </div>
+
+            <!-- Tab Headers -->
+            <div class="flex space-x-2 border-b border-dark-800 overflow-x-auto pb-px">
+                <button onclick="switchTab('tab-recruitment')" id="btn-tab-recruitment" class="tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-brand-500 text-brand-500 focus:outline-none whitespace-nowrap transition">
+                    <i class="fas fa-handshake-angle mr-1.5"></i> Rekrutmen & Branding
+                </button>
+                <button onclick="switchTab('tab-onboarding')" id="btn-tab-onboarding" class="tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-transparent text-light-300 hover:text-white focus:outline-none whitespace-nowrap transition">
+                    <i class="fas fa-rocket mr-1.5"></i> Onboarding
+                </button>
+                <button onclick="switchTab('tab-coaching')" id="btn-tab-coaching" class="tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-transparent text-light-300 hover:text-white focus:outline-none whitespace-nowrap transition">
+                    <i class="fas fa-comments mr-1.5"></i> Coaching & Feedback
+                </button>
+                <button onclick="switchTab('tab-management')" id="btn-tab-management" class="tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-transparent text-light-300 hover:text-white focus:outline-none whitespace-nowrap transition">
+                    <i class="fas fa-cubes mr-1.5"></i> Manajemen Harian
+                </button>
+            </div>
+
+            <!-- Tab Contents container -->
+            <div class="bg-dark-900 border border-t-0 border-dark-800 rounded-b-2xl p-6 shadow-heavy-dark">
+                
+                <!-- CONTENT 1: RECRUITMENT -->
+                <div id="tab-recruitment" class="tab-content space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-brand-500/15 text-brand-400 font-black px-2.5 py-1 rounded-lg">REKOMENDASI UTAMA</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Realistic Job Previews (RJP)</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Jangan hanya mengumbar 'kemegahan' visi perusahaan saat proses wawancara. Jelaskan secara transparan dinamika operasional harian yang akan mereka hadapi, termasuk target performa, struktur laporan, dan ekspektasi akuntabilitas kerja.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-chart-line text-xs"></i>
+                                <span class="font-bold">Mampu memangkas tingkat pengunduran diri di masa awal percobaan hingga 30% (Zahra et al., 2025).</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-white/10 text-white font-black px-2.5 py-1 rounded-lg font-mono">AUTHENTIC BRANDING</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Evidence-Based Brand Position</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Gen Z dibekali kemampuan mendeteksi 'gimmick' yang tajam (*greenwashing detector*). Tampilkan transparansi pencapaian tujuan sosial perusahaan (seperti ESG) atau portofolio riil dari proyek tim yang diukur secara konkret.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-shield-halved text-xs"></i>
+                                <span class="font-bold">Menarik minat talenta terbaik dengan motivasi kontribusi yang solid.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENT 2: ONBOARDING -->
+                <div id="tab-onboarding" class="tab-content space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-brand-500/15 text-brand-400 font-black px-2.5 py-1 rounded-lg">SYSTEM INTEGRATION</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Mitigasi Tech Anxiety (Kecemasan Sistem)</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Jangan asumsikan generasi digital otomatis memahami alur kerja di software ERP profesional atau spreadsheet keuangan yang kompleks. Berikan modul pembelajaran interaktif berdurasi singkat dan ramah pemula di pekan pertama mereka bergabung.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-circle-exclamation text-xs"></i>
+                                <span class="font-bold">Mencegah terjadinya eror fatal dalam input data keuangan atau operasional.</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-white/10 text-white font-black px-2.5 py-1 rounded-lg">SOCIAL SYSTEM</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Program Pendampingan "Buddy" Non-Evaluatif</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Pasangkan rekan baru Anda dengan mentor sebaya di luar jalur manajerial strukturalnya. Bertujuan murni untuk mendampingi transisi sosial, memperkenalkan kultur kerja yang inklusif, dan membimbing kebiasaan harian secara rileks.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-users-viewfinder text-xs"></i>
+                                <span class="font-bold">Mendorong asimilasi kultural yang lebih cepat dan menenangkan bagi karyawan baru.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENT 3: COACHING -->
+                <div id="tab-coaching" class="tab-content space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-brand-500/15 text-brand-400 font-black px-2.5 py-1 rounded-lg">MANAGEMENT ROUTINE</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Evaluasi Taktis & Ringkas (1-on-1 Feedback)</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Tinggalkan model ulasan tahunan yang terlampau formal dan menegangkan. Lakukan pertemuan personal santai selama 15 menit setiap pekan untuk membahas tantangan kerja langsung dan merumuskan solusi pragmatis secara bersama-sama.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-arrow-up-right-dots text-xs"></i>
+                                <span class="font-bold">Sangat memuaskan hasrat Gen Z terhadap asupan feedback yang solutif.</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-white/10 text-white font-black px-2.5 py-1 rounded-lg">COACHING DIALOGUE</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Konsep Dialog Konstruktif Dua Arah</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Jika tim Anda melakukan kekeliruan dalam eksekusi proyek, arahkan mereka menggunakan 3 pertanyaan: (1) Di bagian mana yang paling menyulitkanmu?; (2) Solusi apa yang menurutmu relevan?; (3) Bagaimana saya bisa membantumu mempermudahnya?
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-handshake-angle text-xs"></i>
+                                <span class="font-bold">Membangun keyakinan mandiri (self-efficacy) tanpa takut menyuarakan rintangan.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENT 4: DAILY MANAGEMENT -->
+                <div id="tab-management" class="tab-content space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-brand-500/15 text-brand-400 font-black px-2.5 py-1 rounded-lg">AUTONOMY DELEGATION</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Outcome-Based Autonomy</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Berikan otonomi penuh dalam menentukan taktik promosi, pembuatan materi kreatif, atau analisis program harian asalkan indikator kinerja utama (KPI) serta ketepatan waktu pelaporan administratif tetap dipatuhi.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-street-view text-xs"></i>
+                                <span class="font-bold">Sesuai dengan konsep Self-Determination Theory (kebebasan bertanggung jawab).</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-5 bg-dark-950 rounded-xl border border-dark-800 glowing-card">
+                            <span class="text-[9px] bg-white/10 text-white font-black px-2.5 py-1 rounded-lg">ROLE ACCURACY</span>
+                            <h4 class="text-sm font-black text-white mt-3 mb-1.5">Kejelasan Peran & Akuntabilitas Terbuka</h4>
+                            <p class="text-xs text-light-300 leading-relaxed">
+                                Gen Z sangat menghargai *role clarity*. Mereka bersedia berkomitmen penuh dan bekerja keras asalkan parameter penilaian kinerja dirumuskan secara transparan, logis, tanpa ada syarat-syarat tersembunyi yang mendadak.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-dark-800 text-[10px] text-brand-accent flex items-center space-x-1.5">
+                                <i class="fas fa-vial-circle-check text-xs"></i>
+                                <span class="font-bold">Membangun harmoni dinamis antara kebebasan berekspresi dan rasa tanggung jawab.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Nonprofit/Purpose-driven Perspective Card -->
+            <div class="bg-gradient-to-br from-dark-900 to-dark-950 border border-dark-800 rounded-2xl p-6 shadow-heavy-dark relative overflow-hidden glowing-card">
+                <div class="absolute top-0 right-0 p-5 opacity-5 text-7xl text-brand-accent">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div class="flex items-center space-x-3 mb-5">
+                    <div class="bg-brand-500/10 text-brand-400 p-3 rounded-xl border border-brand-500/20 shadow-sm">
+                        <i class="fas fa-globe text-xl animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white">Sektor Impact-Driven (NGO & Sosial)</h4>
+                        <p class="text-[10px] text-light-300 font-bold uppercase tracking-wider">Meningkatkan Keterlibatan Berbasis Misi</p>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-xs text-light-300">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-accent mt-1 flex-shrink-0"></i>
+                        <span><strong>Interaksi Lapangan Langsung:</strong> Hubungkan tim muda dengan penerima manfaat dari program sosial secara berkala guna merawat motivasi prososial (*Public Service Motivation*) mereka.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-accent mt-1 flex-shrink-0"></i>
+                        <span><strong>Proteksi Burnout Kerja:</strong> Jaga kesehatan mental mereka dari jebakan moralitas (*prosocial role entrapment*)—eksploitasi energi bermotif "pengabdian" tanpa istirahat memadai.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-accent mt-1 flex-shrink-0"></i>
+                        <span><strong>Fasilitas Non-Finansial:</strong> Dukung loyalitas mereka melalui peningkatan program kompetensi berlisensi internasional dan jam kerja yang fleksibel.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Profit Perspective Card -->
+            <div class="bg-gradient-to-br from-dark-900 to-dark-950 border border-dark-800 rounded-2xl p-6 shadow-heavy-dark relative overflow-hidden glowing-card">
+                <div class="absolute top-0 right-0 p-5 opacity-5 text-7xl text-brand-violet">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <div class="flex items-center space-x-3 mb-5">
+                    <div class="bg-brand-violet/10 text-brand-violet p-3 rounded-xl border border-brand-violet/20 shadow-sm">
+                        <i class="fas fa-building text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white">Sektor Komersial (Corporate & Startup)</h4>
+                        <p class="text-[10px] text-light-300 font-bold uppercase tracking-wider">Menanamkan Kultur Kerja Purpose-Driven</p>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-xs text-light-300">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-violet mt-1 flex-shrink-0"></i>
+                        <span><strong>Inisiatif Sosial Autentik:</strong> Integrasikan laba bisnis dengan kontribusi sosial rill. Izinkan persentase dari laba proyek dikelola langsung oleh tim muda untuk mendukung isu kemanusiaan lokal.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-violet mt-1 flex-shrink-0"></i>
+                        <span><strong>Metode Job Crafting:</strong> Berikan alokasi waktu kerja komersial mingguan khusus (5-10% waktu kantor) bagi staf untuk berkontribusi menjadi sukarelawan pada komunitas eksternal.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-circle-check text-brand-violet mt-1 flex-shrink-0"></i>
+                        <span><strong>Reframing Visi Korporasi:</strong> Tekankan narasi kepemimpinan bahwa laba finansial bukan merupakan tujuan akhir melainkan instrumen penting untuk membiayai inisiatif sosial dan masa depan ekosistem.</span>
+                    </li>
+                </ul>
+            </div>
+            
+        </section>
+
+    </main>
+
+    <footer class="bg-dark-950 border-t border-dark-800 py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="space-y-2 text-center md:text-left">
+                <p class="text-xs text-light-300 font-bold">
+                    &copy; 2026 Next-Gen Leadership Hub. All rights reserved. | <span class="text-brand-accent">Created by Rio HafandAI</span>
+                </p>
+                <p class="text-[10px] text-light-300 max-w-xl leading-relaxed">
+                    Setiap indikator dan algoritma kalkulasi dalam dashboard ini dirumuskan dari riset akademis mutakhir di bidang psikologi industri perilaku organisasi global serta tinjauan meta-analisis literatur tepercaya.
+                </p>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="resetDashboard()" class="bg-dark-900 hover:bg-dark-850 border border-dark-800 hover:border-brand-500 text-xs text-light-200 hover:text-brand-400 px-4 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 font-black shadow-md">
+                    <i class="fas fa-undo-alt text-[10px]"></i>
+                    <span>Setel Ulang Data</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. QUIZ DATA BASE
+        const quizData = [
+            {
+                statement: '"Gen Z menuntut pekerjaan bermakna yang memberikan dampak langsung sehingga mereka rela menerima kompensasi finansial yang rendah secara konsisten."',
+                topic: 'MOTIVASI & KOMPENSASI',
+                answer: 'MITOS',
+                refTitle: 'Ward (2023) & Deloitte Global (2025)',
+                explanation: 'Meskipun faktor kebermaknaan dinilai tinggi, kompensasi finansial tetap mendominasi keputusan riil karier. Di bawah desakan ekonomi inflasi makro, komitmen keberlanjutan kerja terganggu jika upah kelayakan tidak terpenuhi.'
+            },
+            {
+                statement: '"Hampir 75% Gen Z lebih menyukai model kerja hybrid dibandingkan bekerja secara remote penuh (WFH) karena mereka menyadari pentingnya interaksi dan bimbingan langsung."',
+                topic: 'PREFERENSI LOKASI KERJA',
+                answer: 'FAKTA',
+                refTitle: 'Seramount Study & Deloitte Research',
+                explanation: 'Hanya sekitar 11% Gen Z menginginkan bekerja WFH penuh. Mayoritas dari mereka (74%) memilih model hybrid karena menyadari bimbingan (mentoring) tatap muka krusial untuk akselerasi karier mereka.'
+            },
+            {
+                statement: '"Gen Z menolak keras segala bentuk struktur organisasi serta hierarki kerja, tidak dapat diarahkan lewat petunjuk teratur, and menuntut kebebasan tanpa batas."',
+                topic: 'OTONOMI & STRUKTUR',
+                answer: 'MITOS',
+                refTitle: 'Zahra et al. (2025) & Lazar (2023)',
+                explanation: 'Gen Z hanya menolak model pengawasan mikro (micromanagement) yang tidak adil. Namun, mereka sangat membutuhkan kejelasan tugas (role clarity), petunjuk pengerjaan yang konkret, serta umpan balik berkala.'
+            },
+            {
+                statement: '"Sebagai pendatang baru yang lahir di era digital, Gen Z secara instingtif menguasai seluruh software bisnis profesional seperti Microsoft Excel tingkat lanjut dan sistem ERP korporasi."',
+                topic: 'KESIAPAN TEKNOLOGI',
+                answer: 'MITOS',
+                refTitle: 'Seramount Study & Ravid (2024)',
+                explanation: 'Kemampuan bersosial media tidak serta merta membuat mereka cakap mengelola basis data profesional. Gen Z justru kerap mengalami tech shame dan kecemasan operasional saat dihadapkan dengan sistem data internal bisnis.'
+            },
+            {
+                statement: '"Pemberian pujian superfisial yang konstan jauh kurang dihargai Gen Z dibandingkan umpan balik yang taktis, solutif, dan mengedepankan pembimbingan harian."',
+                topic: 'PREFERENSI FEEDBACK',
+                answer: 'FAKTA',
+                refTitle: 'Deloitte Global Study & Yellow Spot Research',
+                explanation: 'Mereka tidak mencari apresiasi kosong untuk memuaskan ego belaka. Gen Z membutuhkan saran taktis yang riil (coaching) guna melatih keterampilan teknis mereka demi kelangsungan karier masa depan.'
+            },
+            {
+                statement: '"Sikap membatasi batasan jam kerja (boundary setting) yang sering dituduh sebagai bentuk kemalasan sebenarnya adalah langkah proteksi sadar untuk menghindari kelelahan ekstrem (burnout)."',
+                topic: 'WORK-LIFE BALANCE',
+                answer: 'FAKTA',
+                refTitle: 'Gallup Research & Masoomi (2024)',
+                explanation: 'Setelah menyaksikan generasi sebelumnya kelelahan akibat beban kerja berlebih, Gen Z cenderung menjaga kesehatan mental mereka secara protektif tanpa berniat memboikot tanggung jawab pekerjaan utama.'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let score = 0;
+        let totalAnswered = 0;
+        let hasAnsweredCurrent = false;
+
+        // 2. CLIPBOARD SHARING LOGIC FOR LEADERS
+        function copyToClipboard(index) {
+            let text = "";
+            if (index === 1) {
+                text = "⚡️ [LEADERSHIP HACK] Hubungan Purpose vs Gaji pada Gen Z:\nMitos: Gen Z mau digaji kecil asal kerjaannya memberikan dampak sosial.\nFakta: Di bawah tekanan ekonomi makro, gaji tetap menjadi deal-breaker nomor satu (Simon's Satisficing Theory). Jangan abaikan kelayakan ekonomi atas nama 'panggilan moral'!\n\n💡 Selengkapnya, pelajari di Gen Z Leadership Interactive Hub.";
+            } else if (index === 2) {
+                text = "🔥 [LEADERSHIP HACK] Aturan & Hierarki Kerja Gen Z:\nMitos: Gen Z tidak mau diatur, anti-struktur, dan mau bebas mutlak.\nFakta: Mereka bukan anti-aturan, melainkan benci pengawasan mikro (micromanagement) yang tidak logis. Mereka sangat mendambakan kejelasan peran (role clarity) dan bimbingan yang terukur.\n\n💡 Bagikan wawasan taktis ini ke para pimpinan divisi!";
+            }
+            
+            // Temporary element for copy (since navigator.clipboard might fail in secure/iframe contexts)
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            showToast("Berhasil disalin! Bagikan ke WhatsApp Group Manajemen.");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("custom-toast");
+            const toastText = document.getElementById("toast-text");
+            toastText.innerText = message;
+            
+            // Slide & Fade in
+            toast.classList.remove("translate-y-20", "opacity-0");
+            toast.classList.add("translate-y-0", "opacity-100");
+            
+            setTimeout(() => {
+                // Slide & Fade out
+                toast.classList.remove("translate-y-0", "opacity-100");
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 3000);
+        }
+
+        // 3. QUIZ CONTROLLERS
+        function updateQuizCard() {
+            const current = quizData[currentQuizIndex];
+            document.getElementById('quiz-index').innerText = `Kartu ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-topic').innerText = current.topic;
+            document.getElementById('quiz-statement').innerText = current.statement;
+            
+            // Reset buttons & hide explanation
+            document.getElementById('quiz-explanation-box').classList.add('hidden');
+            document.getElementById('btn-mitos').className = "flex-1 py-4 bg-dark-800 hover:bg-dark-750 border border-dark-700 text-white font-extrabold text-xs sm:text-sm rounded-xl transition duration-200 focus:outline-none flex items-center justify-center space-x-2 shadow-sm";
+            document.getElementById('btn-fakta').className = "flex-1 py-4 bg-dark-800 hover:bg-dark-750 border border-dark-700 text-white font-extrabold text-xs sm:text-sm rounded-xl transition duration-200 focus:outline-none flex items-center justify-center space-x-2 shadow-sm";
+            
+            // Progress Bar
+            const percent = ((currentQuizIndex + 1) / quizData.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${percent}%`;
+            
+            hasAnsweredCurrent = false;
+        }
+
+        function checkAnswer(chosen) {
+            if (hasAnsweredCurrent) return; // Prevent multiple answer attempts on the same card
+            
+            const current = quizData[currentQuizIndex];
+            const isCorrect = (chosen === current.answer);
+            
+            totalAnswered++;
+            if (isCorrect) {
+                score++;
+                document.getElementById('quiz-badge').innerText = "AKURAT!";
+                document.getElementById('quiz-badge').className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30";
+            } else {
+                document.getElementById('quiz-badge').innerText = "BELUM TEPAT";
+                document.getElementById('quiz-badge').className = "px-3 py-1 text-[10px] font-black rounded-lg bg-red-500/20 text-red-400 border border-red-500/30";
+            }
+            
+            // Highlight selected button with custom dynamic classes
+            if (chosen === 'MITOS') {
+                document.getElementById('btn-mitos').className = "flex-1 py-4 bg-red-950/40 border border-red-500/50 text-red-400 font-extrabold text-xs sm:text-sm rounded-xl transition focus:outline-none flex items-center justify-center space-x-2";
+            } else {
+                document.getElementById('btn-fakta').className = "flex-1 py-4 bg-brand-500/40 border border-brand-500/50 text-brand-400 font-extrabold text-xs sm:text-sm rounded-xl transition focus:outline-none flex items-center justify-center space-x-2";
+            }
+            
+            // Update Score counter UI
+            document.getElementById('score-counter').innerText = `${score} / ${totalAnswered}`;
+            
+            // Display explanation text
+            document.getElementById('quiz-ref-title').innerText = `Referensi: ${current.refTitle}`;
+            document.getElementById('quiz-explanation-text').innerText = current.explanation;
+            document.getElementById('quiz-explanation-box').classList.remove('hidden');
+            
+            hasAnsweredCurrent = true;
+        }
+
+        function nextQuizCard() {
+            currentQuizIndex = (currentQuizIndex + 1) % quizData.length;
+            updateQuizCard();
+        }
+
+        // 4. RETENTION RISK CALCULATOR LOGIC (BASED ON EMPIRICAL COEFFICIENTS)
+        function calculateRetention() {
+            // Get values from sliders
+            const careerVal = parseFloat(document.getElementById('input-career').value);
+            const salaryVal = parseFloat(document.getElementById('input-salary').value);
+            const flexVal = parseFloat(document.getElementById('input-flexibility').value);
+            const safetyVal = parseFloat(document.getElementById('input-safety').value);
+            const purposeVal = parseFloat(document.getElementById('input-purpose').value);
+            
+            // Update numeric text displays next to sliders
+            document.getElementById('val-career').innerText = `${careerVal}%`;
+            document.getElementById('val-salary').innerText = `${salaryVal}%`;
+            document.getElementById('val-flexibility').innerText = `${flexVal}%`;
+            document.getElementById('val-safety').innerText = `${safetyVal}%`;
+            document.getElementById('val-purpose').innerText = `${purposeVal}%`;
+            
+            // Regression Beta-weighted calculation
+            // Career: 0.45, Salary: 0.41, Flexibility: 0.38, Safety: 0.28, Purpose: 0.15
+            const totalWeights = 0.45 + 0.41 + 0.38 + 0.28 + 0.15;
+            const scoreSum = (careerVal * 0.45) + (salaryVal * 0.41) + (flexVal * 0.38) + (safetyVal * 0.28) + (purposeVal * 0.15);
+            const normalizedScore = Math.round(scoreSum / totalWeights);
+            
+            // Update circular score
+            const scoreDisplay = document.getElementById('retention-score');
+            scoreDisplay.innerText = `${normalizedScore}%`;
+            
+            // Determine Status and dynamic brief
+            const statusDisplay = document.getElementById('retention-status');
+            const briefDisplay = document.getElementById('retention-brief');
+            
+            if (normalizedScore >= 75) {
+                statusDisplay.innerText = "RETENSI SANGAT PRIMA (LOYAL)";
+                statusDisplay.className = "text-base font-black text-emerald-500 mb-2";
+                briefDisplay.innerText = "Kombinasi luar biasa! Struktur tata kelola kepemimpinan yang Anda terapkan berhasil menyelaraskan kompensasi dasar dengan percepatan karier karyawan muda secara optimal.";
+            } else if (normalizedScore >= 50) {
+                statusDisplay.innerText = "TINGKAT RETENSI MODERAT";
+                statusDisplay.className = "text-base font-black text-yellow-500 mb-2";
+                briefDisplay.innerText = "Staf Anda berada di posisi netral. Ketiadaan peta jalan karier terstruktur atau kelenturan jam kerja dapat memicu keinginan mengundurkan diri sewaktu-waktu.";
+            } else {
+                statusDisplay.innerText = "ZONA MERAH: RAWAN TURNOVER MASSAL";
+                statusDisplay.className = "text-base font-black text-red-500 mb-2";
+                briefDisplay.innerText = "Bahaya besar! Komponen utama kepuasan retensi berada di bawah batas minimum kelayakan. Bersiaplah menghadapi gelombang pengunduran diri serentak.";
+            }
+            
+            // Simon's Satisficing Visualizer logic
+            const salaryProgress = document.getElementById('salary-progress');
+            const salaryStatus = document.getElementById('salary-threshold-status');
+            const satisficingVerdict = document.getElementById('satisficing-verdict');
+            
+            salaryProgress.style.width = `${salaryVal}%`;
+            
+            if (salaryVal < 45) {
+                salaryStatus.innerText = "Kritis (Kurang Layak)";
+                salaryStatus.className = "font-black text-red-500 text-[11px] uppercase";
+                satisficingVerdict.innerHTML = `"<strong>Kompensasi dasar belum memadai.</strong> Sesuai Simon's Satisficing Theory, nilai visi sosial / 'purpose' tidak akan mampu mencegah tim Anda dari keputusan mengundurkan diri mendadak."`;
+                salaryProgress.className = "bg-gradient-to-r from-red-500 to-yellow-500 h-full";
+            } else {
+                salaryStatus.innerText = "Stabil (Terpenuhi)";
+                salaryStatus.className = "font-black text-brand-accent text-[11px] uppercase";
+                satisficingVerdict.innerHTML = `"<strong>Kompensasi dasar aman.</strong> Budaya kerja, fleksibilitas tugas, rasa aman, serta tujuan luhur korporasi kini dapat beroperasi penuh sebagai perekat loyalitas tim."`;
+                salaryProgress.className = "bg-gradient-to-r from-red-500 to-brand-accent h-full";
+            }
+            
+            // Actionable dynamic Recommendation Engine (Tackling the lowest score input)
+            const recDisplay = document.getElementById('retention-recommendation');
+            const scores = [
+                { name: 'Kejelasan Karir', val: careerVal, rec: "Stagnasi jenjang karir adalah musuh utama retensi Gen Z. Segera rancang peta kompetensi terstruktur atau penugasan proyek khusus!" },
+                { name: 'Kompensasi Finansial', val: salaryVal, rec: "Tingkat kepuasan benefit dasar berada di zona kritis. Evaluasi kembali kelayakan gaji pokok tim Anda terhadap standar pasar sebelum kompetitor mengambil alih tim berharga Anda." },
+                { name: 'Fleksibilitas Kerja', val: flexVal, rec: "Pengawasan mikro (micromanagement) fisik membunuh kreativitas staf muda. Sediakan kelonggaran otonomi menyusun cara kerja atau berikan opsi fleksibilitas jam kerja." },
+                { name: 'Keamanan Psikologis', val: safetyVal, rec: "Kultur menyalahkan menghambat inovasi. Terapkan dialog dua arah (collaborative forum) tanpa tekanan rasa takut, jadikan kegagalan eksperimen sebagai bahan pembelajaran sistemik." },
+                { name: 'Kebermaknaan Kerja', val: purposeVal, rec: "Karyawan merasa terasing dari tujuan utama bisnis. Jelaskan secara visual dan teratur bagaimana setiap detail tugas administrasi mereka berkontribusi nyata pada misi besar organisasi." }
+            ];
+            
+            // Find lowest score
+            scores.sort((a, b) => a.val - b.val);
+            recDisplay.innerText = `${scores[0].name} tim Anda memiliki skor terendah (${scores[0].val}%). ${scores[0].rec}`;
+        }
+
+        // 5. TAB CONTROLLERS FOR PLAYBOOK
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.add('hidden');
+            }
+            
+            // Deactivate all tab buttons
+            const buttons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].className = "tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-transparent text-light-300 hover:text-white focus:outline-none whitespace-nowrap transition";
+            }
+            
+            // Show active content
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Highlight active button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn px-5 py-3 text-xs sm:text-sm font-extrabold border-b-2 border-brand-500 text-brand-500 focus:outline-none whitespace-nowrap transition";
+        }
+
+        // 6. GLOBAL RESET
+        function resetDashboard() {
+            currentQuizIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            updateQuizCard();
+            document.getElementById('score-counter').innerText = "0 / 0";
+            
+            // Reset Sliders
+            document.getElementById('input-career').value = 50;
+            document.getElementById('input-salary').value = 50;
+            document.getElementById('input-flexibility').value = 50;
+            document.getElementById('input-safety').value = 50;
+            document.getElementById('input-purpose').value = 50;
+            
+            calculateRetention();
+            switchTab('tab-recruitment');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast("Seluruh parameter dasbor berhasil disetel ulang!");
+        }
+
+        // Window onload initialization
+        window.onload = function() {
+            updateQuizCard();
+            calculateRetention();
+        };
+    </script>
+</body>
+</html>
